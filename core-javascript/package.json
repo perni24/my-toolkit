@@ -10,6 +10,9 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "test": "node --test"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mio-utente/my-toolkit.git",
