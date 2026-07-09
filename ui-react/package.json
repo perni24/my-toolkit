@@ -1,0 +1,25 @@
+{
+  "name": "@mio-utente/ui-react",
+  "version": "0.1.0",
+  "description": "Reusable React UI components for mio-utente/my-toolkit.",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mio-utente/my-toolkit.git",
+    "directory": "ui-react"
+  },
+  "author": "mio-utente",
+  "license": "MIT"
+}

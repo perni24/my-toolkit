@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "core-python"
+version = "0.1.0"
+description = "Reusable Python utilities for mio-utente/my-toolkit."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+  { name = "mio-utente" }
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/mio-utente/my-toolkit"
+Repository = "https://github.com/mio-utente/my-toolkit"
+
+[tool.setuptools.packages.find]
+where = ["src"]

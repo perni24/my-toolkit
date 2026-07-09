@@ -1,0 +1,12 @@
+[package]
+name = "core-rust"
+version = "0.1.0"
+edition = "2021"
+description = "Reusable Rust utilities for mio-utente/my-toolkit."
+license = "MIT"
+repository = "https://github.com/mio-utente/my-toolkit"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
