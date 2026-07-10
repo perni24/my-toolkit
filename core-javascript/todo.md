@@ -4,22 +4,6 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `isNumber(value)`
-
-Verifica se un valore e' un numero JavaScript valido. Deve distinguere i numeri reali da stringhe numeriche, valori vuoti, `NaN` e valori infiniti.
-
-### `isInteger(value)`
-
-Verifica se un valore e' un numero intero valido. Deve escludere decimali, stringhe, `NaN`, infinito e valori non numerici.
-
-### `isPositive(value)`
-
-Verifica se un valore e' un numero maggiore di zero. Deve chiarire come trattare `0`, numeri negativi, stringhe numeriche e valori non numerici.
-
-### `isNegative(value)`
-
-Verifica se un valore e' un numero minore di zero. Deve escludere `0`, valori positivi e input non numerici.
-
 ### `isEven(value)`
 
 Verifica se un valore e' un numero intero pari. Deve escludere decimali e valori non numerici.
