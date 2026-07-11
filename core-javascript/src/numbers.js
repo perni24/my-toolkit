@@ -15,14 +15,18 @@ export function isNegative(value){
 }
 
 export function isEven(value){
-    return isInteger(value) && value % 2 === 0 && value !== 0
+    return isInteger(value) && value % 2 === 0
 }
 
 export function isOdd(value){
-    return isInteger(value) && value % 2 !== 0 && value !== 0
+    return isInteger(value) && value % 2 !== 0
 }
 
 export function toNumber(value, fallback){
     let num = Number(value)
-    return (!Number.isNaN(num) && ![0,1].includes(num) && num !== Infinity) || (num === 0 && value === "0") || (num === 1 && value === "1") ? parseFloat(value) : fallback
+    return (!Number.isNaN(num) && ![0,1].includes(num) && num !== Infinity && num !== -Infinity && typeof value !== "object") || (num === 0 && (value == "0" || value?.includes("0")) && value !== false) || (num === 1 && (value == "1" || value?.includes("1")) && value !== true) ? parseFloat(num) : fallback
+}
+
+export function clamp(value, min, max){
+    
 }
