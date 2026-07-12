@@ -28,5 +28,24 @@ export function toNumber(value, fallback){
 }
 
 export function clamp(value, min, max){
-    
+    return value > max ? max : value < min ? min : value  
+}
+
+export function roundTo(value, decimals){
+    return Number(value) ? Number(value.toFixed(decimals)) : NaN
+}
+
+export function percentage(value, total){
+    if(!isNumber(value) || !isNumber(total) ){
+        return NaN
+    }
+    return total !== 0 ? value / total * 100 : 0
+}
+
+export function sum(values){
+    let ris = 0
+    values.forEach(element => {
+        ris += element
+    });
+    return ris
 }

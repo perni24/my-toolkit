@@ -106,3 +106,55 @@ test("toNumber", () => {
   assert.equal(numbers.toNumber("Infinity", 99), 99);
   assert.equal(numbers.toNumber("-Infinity", 99), 99);
 });
+
+test("clamp", () => {
+  assert.equal(numbers.clamp(5, 1, 10), 5);
+  assert.equal(numbers.clamp(0, -5, 5), 0);
+  assert.equal(numbers.clamp(1.5, 1, 2), 1.5);
+  assert.equal(numbers.clamp(1, 1, 10), 1);
+  assert.equal(numbers.clamp(10, 1, 10), 10);
+  assert.equal(numbers.clamp(0, 1, 10), 1);
+  assert.equal(numbers.clamp(-10, -5, 5), -5);
+  assert.equal(numbers.clamp(12, 1, 10), 10);
+  assert.equal(numbers.clamp(8, -5, 5), 5);
+});
+
+test("roundTo", () => {
+  assert.equal(numbers.roundTo(10.5678, 2), 10.57);
+  assert.equal(numbers.roundTo(10.5623, 2), 10.56);
+  assert.equal(numbers.roundTo(-2.456, 2), -2.46);
+  assert.equal(numbers.roundTo(10.5678, 0), 11);
+  assert.equal(numbers.roundTo(10.4, 0), 10);
+  assert.equal(numbers.roundTo(-2.6, 0), -3);
+  assert.equal(numbers.roundTo(5.5, 3), 5.5);
+  assert.equal(Number.isNaN(numbers.roundTo("abc", 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(undefined, 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(NaN, 2)), true);
+});
+
+test("percentage", () => {
+  assert.equal(numbers.percentage(25, 100), 25);
+  assert.equal(numbers.percentage(5, 20), 25);
+  assert.equal(numbers.percentage(1, 3), 33.33333333333333);
+  assert.equal(numbers.percentage(0, 50), 0);
+  assert.equal(numbers.percentage(150, 100), 150);
+  assert.equal(numbers.percentage(30, 20), 150);
+  assert.equal(numbers.percentage(10, 0), 0); 
+  assert.equal(numbers.percentage(0, 0), 0);
+  assert.equal(Number.isNaN(numbers.percentage("abc", 100)), true);
+  assert.equal(Number.isNaN(numbers.percentage(25, "xyz")), true);
+  assert.equal(Number.isNaN(numbers.percentage(undefined, 100)), true);
+  assert.equal(Number.isNaN(numbers.percentage(25, null)), true);
+  assert.equal(Number.isNaN(numbers.percentage(NaN, 100)), true);
+});
+
+test("sum", () => {
+  assert.equal(numbers.sum([1, 2, 3, 4]), 10);
+  assert.equal(numbers.sum([-1, -2, 3]), 0);
+  assert.equal(numbers.sum([1.5, 2.5]), 4);
+  assert.equal(numbers.sum([]), 0);
+  assert.equal(Number.isNaN(numbers.sum([1, 2, "abc", 4])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, undefined, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, NaN, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, null, 3])), true);
+});
