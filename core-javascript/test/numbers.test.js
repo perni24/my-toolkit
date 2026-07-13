@@ -6,6 +6,7 @@ test("isNumber", () => {
   assert.equal(numbers.isNumber(10), true);
   assert.equal(numbers.isNumber(10.5), true);
   assert.equal(numbers.isNumber(-3), true);
+  assert.equal(numbers.isNumber(-0), true);
   assert.equal(numbers.isNumber("10"), false);
   assert.equal(numbers.isNumber(null), false);
   assert.equal(numbers.isNumber(undefined), false);
@@ -19,6 +20,7 @@ test("isInteger", () => {
   assert.equal(numbers.isInteger(10), true);
   assert.equal(numbers.isInteger(-3), true);
   assert.equal(numbers.isInteger(0), true);
+  assert.equal(numbers.isInteger(-0), true);
   assert.equal(numbers.isInteger(10.5), false);
   assert.equal(numbers.isInteger("10"), false);
   assert.equal(numbers.isInteger(null), false);
@@ -32,6 +34,7 @@ test("isPositive", () => {
   assert.equal(numbers.isPositive(10), true);
   assert.equal(numbers.isPositive(0.5), true);
   assert.equal(numbers.isPositive(0), false);
+  assert.equal(numbers.isPositive(-0), false);
   assert.equal(numbers.isPositive(-3), false);
   assert.equal(numbers.isPositive("10"), false);
   assert.equal(numbers.isPositive(null), false);
@@ -44,6 +47,7 @@ test("isNegative", () => {
   assert.equal(numbers.isNegative(-10), true);
   assert.equal(numbers.isNegative(-0.5), true);
   assert.equal(numbers.isNegative(0), false);
+  assert.equal(numbers.isNegative(-0), false);
   assert.equal(numbers.isNegative(3), false);
   assert.equal(numbers.isNegative("-10"), false);
   assert.equal(numbers.isNegative(null), false);
@@ -55,6 +59,7 @@ test("isNegative", () => {
 test("isEven", () => {
   assert.equal(numbers.isEven(10), true);
   assert.equal(numbers.isEven(0), true);
+  assert.equal(numbers.isEven(-0), true);
   assert.equal(numbers.isEven(-4), true);
   assert.equal(numbers.isEven(7), false);
   assert.equal(numbers.isEven(-3), false);
@@ -69,6 +74,7 @@ test("isOdd", () => {
   assert.equal(numbers.isOdd(7), true);
   assert.equal(numbers.isOdd(-3), true);
   assert.equal(numbers.isOdd(0), false);
+  assert.equal(numbers.isOdd(-0), false);
   assert.equal(numbers.isOdd(10), false);
   assert.equal(numbers.isOdd(-4), false);
   assert.equal(numbers.isOdd(2.5), false);
@@ -90,6 +96,9 @@ test("toNumber", () => {
   assert.equal(numbers.toNumber("1", 99), 1);
   assert.equal(numbers.toNumber("1.0", 99), 1);
   assert.equal(numbers.toNumber("0x10", 99), 16);
+  assert.equal(numbers.toNumber("1e3", 99), 1000);
+  assert.equal(numbers.toNumber("+12", 99), 12);
+  assert.equal(numbers.toNumber("-0.5", 99), -0.5);
   assert.equal(numbers.toNumber("", 99), 99);
   assert.equal(numbers.toNumber("   ", 99), 99);
   assert.equal(numbers.toNumber("12abc", 99), 99);
@@ -105,6 +114,10 @@ test("toNumber", () => {
   assert.equal(numbers.toNumber(-Infinity, 99), 99);
   assert.equal(numbers.toNumber("Infinity", 99), 99);
   assert.equal(numbers.toNumber("-Infinity", 99), 99);
+  assert.equal(numbers.toNumber(10n, 99), 99);
+  assert.equal(numbers.toNumber(Symbol("10"), 99), 99);
+  assert.equal(numbers.toNumber("abc", null), null);
+  assert.equal(numbers.toNumber("abc", "invalid"), "invalid");
 });
 
 test("clamp", () => {
@@ -117,6 +130,12 @@ test("clamp", () => {
   assert.equal(numbers.clamp(-10, -5, 5), -5);
   assert.equal(numbers.clamp(12, 1, 10), 10);
   assert.equal(numbers.clamp(8, -5, 5), 5);
+  assert.equal(Number.isNaN(numbers.clamp("5", 1, 10)), true);
+  assert.equal(Number.isNaN(numbers.clamp(NaN, 1, 10)), true);
+  assert.equal(Number.isNaN(numbers.clamp(Infinity, 1, 10)), true);
+  assert.equal(Number.isNaN(numbers.clamp(5, "1", 10)), true);
+  assert.equal(Number.isNaN(numbers.clamp(5, 1, null)), true);
+  assert.equal(Number.isNaN(numbers.clamp(5, 10, 1)), true);
 });
 
 test("roundTo", () => {
@@ -127,9 +146,21 @@ test("roundTo", () => {
   assert.equal(numbers.roundTo(10.4, 0), 10);
   assert.equal(numbers.roundTo(-2.6, 0), -3);
   assert.equal(numbers.roundTo(5.5, 3), 5.5);
+  assert.equal(numbers.roundTo(0, 2), 0);
   assert.equal(Number.isNaN(numbers.roundTo("abc", 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo("1.25", 1)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(null, 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(true, 2)), true);
   assert.equal(Number.isNaN(numbers.roundTo(undefined, 2)), true);
   assert.equal(Number.isNaN(numbers.roundTo(NaN, 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(Infinity, 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(-Infinity, 2)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(1.25, -1)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(1.25, 101)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(1.25, 1.5)), true);
+  assert.equal(Number.isNaN(numbers.roundTo(1.25, "2")), true);
+  assert.equal(Number.isNaN(numbers.roundTo(1.25, undefined)), true);
+  assert.equal(numbers.roundTo(1.005, 2), 1.01);
 });
 
 test("percentage", () => {
@@ -139,6 +170,9 @@ test("percentage", () => {
   assert.equal(numbers.percentage(0, 50), 0);
   assert.equal(numbers.percentage(150, 100), 150);
   assert.equal(numbers.percentage(30, 20), 150);
+  assert.equal(numbers.percentage(-25, 100), -25);
+  assert.equal(numbers.percentage(25, -100), -25);
+  assert.equal(numbers.percentage(-25, -100), 25);
   assert.equal(numbers.percentage(10, 0), 0); 
   assert.equal(numbers.percentage(0, 0), 0);
   assert.equal(Number.isNaN(numbers.percentage("abc", 100)), true);
@@ -146,15 +180,81 @@ test("percentage", () => {
   assert.equal(Number.isNaN(numbers.percentage(undefined, 100)), true);
   assert.equal(Number.isNaN(numbers.percentage(25, null)), true);
   assert.equal(Number.isNaN(numbers.percentage(NaN, 100)), true);
+  assert.equal(Number.isNaN(numbers.percentage(Infinity, 100)), true);
+  assert.equal(Number.isNaN(numbers.percentage(25, Infinity)), true);
+  assert.equal(Number.isNaN(numbers.percentage(-Infinity, 100)), true);
+  assert.equal(Number.isNaN(numbers.percentage(true, 100)), true);
+  assert.equal(Number.isNaN(numbers.percentage(25, false)), true);
 });
 
 test("sum", () => {
   assert.equal(numbers.sum([1, 2, 3, 4]), 10);
   assert.equal(numbers.sum([-1, -2, 3]), 0);
   assert.equal(numbers.sum([1.5, 2.5]), 4);
-  assert.equal(numbers.sum([]), 0);
+  assert.equal(Number.isNaN(numbers.sum([])), true);
   assert.equal(Number.isNaN(numbers.sum([1, 2, "abc", 4])), true);
   assert.equal(Number.isNaN(numbers.sum([1, undefined, 3])), true);
   assert.equal(Number.isNaN(numbers.sum([1, NaN, 3])), true);
   assert.equal(Number.isNaN(numbers.sum([1, null, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, Infinity, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, -Infinity, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, "2", 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, true, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, {}, 3])), true);
+  assert.equal(Number.isNaN(numbers.sum(null)), true);
+  assert.equal(Number.isNaN(numbers.sum(undefined)), true);
+  assert.equal(Number.isNaN(numbers.sum("123")), true);
+  assert.equal(Number.isNaN(numbers.sum({})), true);
+  assert.equal(Number.isNaN(numbers.sum({ value: 1 })), true);
+  assert.equal(Number.isNaN(numbers.sum([, 1])), true);
+  assert.equal(Number.isNaN(numbers.sum([1, Symbol("2"), 3])), true);
+});
+
+test("average", () => {
+  assert.equal(numbers.average([1, 2, 3, 4]), 2.5);
+  assert.equal(numbers.average([-1, -2, 3]), 0);
+  assert.equal(numbers.average([1.5, 2.5]), 2);
+  assert.equal(numbers.average([0]), 0);
+  assert.equal(numbers.average([5]), 5);
+  assert.equal(Number.isNaN(numbers.average([])), true);
+  assert.equal(Number.isNaN(numbers.average([1, "2", 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, null, 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, undefined, 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, NaN, 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, Infinity, 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, -Infinity, 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, true, 3])), true);
+  assert.equal(Number.isNaN(numbers.average([1, {}, 3])), true);
+  assert.equal(Number.isNaN(numbers.average(null)), true);
+  assert.equal(Number.isNaN(numbers.average(undefined)), true);
+  assert.equal(Number.isNaN(numbers.average("123")), true);
+  assert.equal(Number.isNaN(numbers.average({})), true);
+  assert.equal(Number.isNaN(numbers.average({ value: 1 })), true);
+  assert.equal(Number.isNaN(numbers.average([, 1])), true);
+  assert.equal(Number.isNaN(numbers.average([1, Symbol("2"), 3])), true);
+});
+
+test("min", () => {
+  assert.equal(numbers.min([1, 2, 3, 4]), 1);
+  assert.equal(numbers.min([-1, -5, 3]), -5);
+  assert.equal(numbers.min([1.5, 0.5, 2.5]), 0.5);
+  assert.equal(numbers.min([0, 5, 10]), 0);
+  assert.equal(numbers.min([7]), 7);
+  assert.equal(numbers.min([3, 1, 1, 2]), 1);
+  assert.equal(Number.isNaN(numbers.min([])), true);
+  assert.equal(Number.isNaN(numbers.min([1, "2", 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, null, 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, undefined, 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, NaN, 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, Infinity, 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, -Infinity, 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, true, 3])), true);
+  assert.equal(Number.isNaN(numbers.min([1, {}, 3])), true);
+  assert.equal(Number.isNaN(numbers.min(null)), true);
+  assert.equal(Number.isNaN(numbers.min(undefined)), true);
+  assert.equal(Number.isNaN(numbers.min("123")), true);
+  assert.equal(Number.isNaN(numbers.min({})), true);
+  assert.equal(Number.isNaN(numbers.min({ value: 1 })), true);
+  assert.equal(Number.isNaN(numbers.min([, 2])), true);
+  assert.equal(Number.isNaN(numbers.min([1, Symbol("2"), 3])), true);
 });

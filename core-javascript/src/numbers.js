@@ -23,16 +23,28 @@ export function isOdd(value){
 }
 
 export function toNumber(value, fallback){
+    if(typeof value === "bigint" || typeof value === "object" || value === true || value === false || (typeof value === "string" ? value.trim() === "" : false) ){
+        return fallback
+    }
     let num = Number(value)
-    return (!Number.isNaN(num) && ![0,1].includes(num) && num !== Infinity && num !== -Infinity && typeof value !== "object") || (num === 0 && (value == "0" || value?.includes("0")) && value !== false) || (num === 1 && (value == "1" || value?.includes("1")) && value !== true) ? parseFloat(num) : fallback
+    if(Number.isNaN(num) || num === Infinity || num === -Infinity){
+        return fallback
+    }
+    return parseFloat(num)
 }
 
 export function clamp(value, min, max){
+    if(!isNumber(value) || !isNumber(min) || !isNumber(max) || min > max){
+        return NaN
+    }
     return value > max ? max : value < min ? min : value  
 }
 
 export function roundTo(value, decimals){
-    return Number(value) ? Number(value.toFixed(decimals)) : NaN
+    if(!isNumber(value) || !isNumber(decimals) || decimals > 100 || decimals < 0 || !isInteger(decimals)){
+        return NaN
+    }
+    return Number(value.toFixed(decimals))
 }
 
 export function percentage(value, total){
@@ -44,8 +56,36 @@ export function percentage(value, total){
 
 export function sum(values){
     let ris = 0
+    let error = 0
+    if (typeof values !== "object" || values === null || Object.keys(values).length === 0){
+        return NaN
+    }
     values.forEach(element => {
+        if(!isNumber(element)){
+            error ++
+        }
         ris += element
     });
-    return ris
+    return error > 0 ? NaN : ris 
+}
+
+export function average(values){
+    let total = sum(values)
+    if( Number.isNaN(total) ){
+        return NaN
+    }
+    return total/values.length
+}
+
+export function min(values){
+    let minValue
+    let error = 0
+    if(typeof values !== "object" || values === null || Object.keys(values).length === 0){
+        return NaN
+    }
+    values.forEach(element => {
+        if(!isNumber(element)) error ++
+        if(minValue == null || minValue > element) minValue = element
+    })
+    return error > 0 ? NaN : minValue 
 }

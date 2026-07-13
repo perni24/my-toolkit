@@ -4,37 +4,37 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `isEven(value)`
+### `max(values)`
 
-Verifica se un valore e' un numero intero pari. Deve escludere decimali e valori non numerici.
+Restituisce il valore massimo di una lista di numeri. Deve gestire gli stessi casi limite di `min` mantenendo un comportamento coerente.
 
-### `isOdd(value)`
+### `product(values)`
 
-Verifica se un valore e' un numero intero dispari. Deve gestire correttamente anche numeri negativi e input non numerici.
+Moltiplica tutti i numeri di una lista. Deve stabilire il risultato per array vuoti e come gestire `0`, `NaN`, infinito e valori non numerici.
 
-### `toNumber(value, fallback)`
+### `isBetween(value, min, max)`
 
-Converte un valore in numero quando possibile. Se la conversione non produce un numero valido, deve restituire un valore di fallback.
+Verifica se un numero appartiene a un intervallo. Deve chiarire se i limiti sono inclusi e come comportarsi quando `min` e' maggiore di `max`.
 
-### `clamp(value, min, max)`
+### `isCloseTo(value, target, tolerance)`
 
-Limita un numero dentro un intervallo minimo e massimo. Deve restituire il minimo se il valore e' troppo basso, il massimo se e' troppo alto, altrimenti il valore originale.
+Verifica se due numeri sono sufficientemente vicini entro una tolleranza. Deve gestire tolleranze negative, zero, valori non numerici e infinito.
 
-### `roundTo(value, decimals)`
+### `median(values)`
 
-Arrotonda un numero a un numero specifico di cifre decimali. Deve considerare decimali pari a zero, valori negativi e input non validi.
+Calcola il valore centrale di una lista ordinata numericamente. Deve gestire liste pari, liste dispari, array vuoti e non modificare l'array originale.
 
-### `percentage(value, total)`
+### `mode(values)`
 
-Calcola che percentuale rappresenta un valore rispetto a un totale. Deve gestire il caso in cui il totale sia zero.
+Restituisce il valore piu' frequente in una lista. Deve definire il comportamento in caso di parita' tra piu' valori e per array vuoti.
 
-### `sum(values)`
+### `countOccurrences(values, target)`
 
-Somma una lista di numeri. Deve chiarire come comportarsi con array vuoti e valori non numerici dentro l'array.
+Conta quante volte un valore compare in una lista. Deve chiarire come confrontare `NaN`, `0`, `-0` e valori di tipo diverso.
 
-### `average(values)`
+### `uniqueNumbers(values)`
 
-Calcola la media di una lista di numeri. Deve gestire array vuoti e dovrebbe riutilizzare la logica di somma in modo leggibile.
+Restituisce una lista contenente una sola occorrenza per ogni numero. Deve preservare l'ordine, gestire `NaN` e decidere cosa fare con valori non numerici.
 
 ## Suggested workflow
 
