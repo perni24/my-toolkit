@@ -4,10 +4,6 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `max(values)`
-
-Restituisce il valore massimo di una lista di numeri. Deve gestire gli stessi casi limite di `min` mantenendo un comportamento coerente.
-
 ### `product(values)`
 
 Moltiplica tutti i numeri di una lista. Deve stabilire il risultato per array vuoti e come gestire `0`, `NaN`, infinito e valori non numerici.

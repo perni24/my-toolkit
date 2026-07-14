@@ -1,5 +1,8 @@
 export function isNumber(value) {
-  return typeof value === "number" && Number.isFinite(value);
+    if(typeof value === "symbol"){
+        return false
+    }
+    return typeof value === "number" && Number.isFinite(value);
 }
 
 export function isInteger(value){
@@ -23,7 +26,7 @@ export function isOdd(value){
 }
 
 export function toNumber(value, fallback){
-    if(typeof value === "bigint" || typeof value === "object" || value === true || value === false || (typeof value === "string" ? value.trim() === "" : false) ){
+    if(typeof value === "bigint" || typeof value === "object" || value === true || value === false || (typeof value === "string" ? value.trim() === "" : false) || typeof value === "symbol" ){
         return fallback
     }
     let num = Number(value)
@@ -57,16 +60,16 @@ export function percentage(value, total){
 export function sum(values){
     let ris = 0
     let error = 0
-    if (typeof values !== "object" || values === null || Object.keys(values).length === 0){
+    if (typeof values !== "object" || values === null || Object.keys(values).length === 0 || !Array.isArray(values)){
         return NaN
     }
-    values.forEach(element => {
+    for(const element of values){
         if(!isNumber(element)){
-            error ++
+            return NaN
         }
         ris += element
-    });
-    return error > 0 ? NaN : ris 
+    }
+    return ris 
 }
 
 export function average(values){
@@ -79,13 +82,32 @@ export function average(values){
 
 export function min(values){
     let minValue
-    let error = 0
-    if(typeof values !== "object" || values === null || Object.keys(values).length === 0){
+    if(typeof values !== "object" || values === null || Object.keys(values).length === 0 || !Array.isArray(values)){
         return NaN
     }
-    values.forEach(element => {
-        if(!isNumber(element)) error ++
-        if(minValue == null || minValue > element) minValue = element
-    })
-    return error > 0 ? NaN : minValue 
+    for(const element of values){
+        if(!isNumber(element)){
+            return NaN
+        }
+        if(minValue == null || minValue > element){
+            minValue = element
+        }
+    }
+    return minValue 
+}
+
+export function max(values){
+    let maxValue
+    if(typeof values !== "object" || values === null || Object.keys(values).length === 0 || !Array.isArray(values)){
+        return NaN
+    }
+    for(const element of values){
+        if(!isNumber(element)){
+            return NaN
+        }
+        if(maxValue == null || maxValue < element ){
+            maxValue = element
+        }
+    }
+    return maxValue
 }
