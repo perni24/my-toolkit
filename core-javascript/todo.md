@@ -4,18 +4,6 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `product(values)`
-
-Moltiplica tutti i numeri di una lista. Deve stabilire il risultato per array vuoti e come gestire `0`, `NaN`, infinito e valori non numerici.
-
-### `isBetween(value, min, max)`
-
-Verifica se un numero appartiene a un intervallo. Deve chiarire se i limiti sono inclusi e come comportarsi quando `min` e' maggiore di `max`.
-
-### `isCloseTo(value, target, tolerance)`
-
-Verifica se due numeri sono sufficientemente vicini entro una tolleranza. Deve gestire tolleranze negative, zero, valori non numerici e infinito.
-
 ### `median(values)`
 
 Calcola il valore centrale di una lista ordinata numericamente. Deve gestire liste pari, liste dispari, array vuoti e non modificare l'array originale.

@@ -111,3 +111,47 @@ export function max(values){
     }
     return maxValue
 }
+
+export function product(values){
+    let total = 1 
+    if (typeof values !== "object" || values === null || Object.keys(values).length === 0 || !Array.isArray(values)){
+        return NaN
+    }
+    for(const element of values){
+        if(element === 0){
+            return 0
+        }
+        if(!isNumber(element)){
+            return NaN
+        }
+        total *= element
+    }
+    return total
+}
+
+export function isBetween(value, min, max){
+    if(min > max ){
+        return false
+    }
+    if( !isNumber(value) || !isNumber(min) || !isNumber(max)){
+        return false
+    }
+    if( min <= value && max >= value ){
+        return true
+    }
+    return false
+}
+
+export function isCloseTo(value, target, tolerance){
+    if(!isNumber(value) || !isNumber(target) || !isNumber(tolerance)){
+        return false
+    }
+    if(Math.abs(value - target) > tolerance){
+        return false
+    }
+    return true
+}
+
+export function median(values){
+    
+}
