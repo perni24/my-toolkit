@@ -153,5 +153,20 @@ export function isCloseTo(value, target, tolerance){
 }
 
 export function median(values){
-    
+    if (typeof values !== "object" || values === null || Object.keys(values).length === 0 || !Array.isArray(values)){
+        return NaN
+    }
+    for(const element of values){
+        if(!isNumber(element)){
+            return NaN
+        }
+    }
+    let half = Math.trunc(values.length/2)
+    values = values.sort((a, b) => a - b)
+    if(values.length % 2 !== 0){
+        return values[half]
+    }
+    if(values.length % 2 === 0){
+        return values[half-1] + (values[half] - values[half-1])/2
+    }
 }
