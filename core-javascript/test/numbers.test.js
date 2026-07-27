@@ -206,7 +206,7 @@ test("sum", () => {
   assert.equal(Number.isNaN(numbers.sum("123")), true);
   assert.equal(Number.isNaN(numbers.sum({})), true);
   assert.equal(Number.isNaN(numbers.sum({ value: 1 })), true);
-  //assert.equal(Number.isNaN(numbers.sum([, 1])), true);
+  assert.equal(Number.isNaN(numbers.sum([, 1])), true);
   assert.equal(Number.isNaN(numbers.sum([1, Symbol("2"), 3])), true);
 });
 
@@ -230,7 +230,7 @@ test("average", () => {
   assert.equal(Number.isNaN(numbers.average("123")), true);
   assert.equal(Number.isNaN(numbers.average({})), true);
   assert.equal(Number.isNaN(numbers.average({ value: 1 })), true);
-  //assert.equal(Number.isNaN(numbers.average([, 1])), true);
+  assert.equal(Number.isNaN(numbers.average([, 1])), true);
   assert.equal(Number.isNaN(numbers.average([1, Symbol("2"), 3])), true);
 });
 
@@ -255,7 +255,7 @@ test("min", () => {
   assert.equal(Number.isNaN(numbers.min("123")), true);
   assert.equal(Number.isNaN(numbers.min({})), true);
   assert.equal(Number.isNaN(numbers.min({ value: 1 })), true);
-  //assert.equal(Number.isNaN(numbers.min([, 2])), true);
+  assert.equal(Number.isNaN(numbers.min([, 2])), true);
   assert.equal(Number.isNaN(numbers.min([1, Symbol("2"), 3])), true);
 });
 
@@ -281,7 +281,7 @@ test("max", () => {
   assert.equal(Number.isNaN(numbers.max("123")), true);
   assert.equal(Number.isNaN(numbers.max({})), true);
   assert.equal(Number.isNaN(numbers.max({ value: 1 })), true);
-  //assert.equal(Number.isNaN(numbers.max([, 2])), true);
+  assert.equal(Number.isNaN(numbers.max([, 2])), true);
   assert.equal(Number.isNaN(numbers.max([1, Symbol("2"), 3])), true);
 });
 
@@ -386,4 +386,32 @@ test("median", () => {
   assert.equal(Number.isNaN(numbers.median({ value: 1 })), true);
   assert.equal(Number.isNaN(numbers.median([, 2])), true);
   assert.equal(Number.isNaN(numbers.median([1, Symbol("2"), 3])), true);
+});
+
+test("mode", () => {
+  assert.equal(numbers.mode([1, 2, 2, 3]), 2);
+  assert.equal(numbers.mode([3, 1, 3, 2, 3]), 3);
+  assert.equal(numbers.mode([-1, -2, -1, 3]), -1);
+  assert.equal(numbers.mode([1.5, 2.5, 1.5]), 1.5);
+  assert.equal(numbers.mode([0, 0, 1]), 0);
+  assert.equal(numbers.mode([7]), 7);
+  assert.equal(numbers.mode([4, 4, 4]), 4);
+  assert.equal(Number.isNaN(numbers.mode([1, 1, 2, 2])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, 2, 3])), true);
+  assert.equal(Number.isNaN(numbers.mode([])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, "2", 2])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, null, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, undefined, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, NaN, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, Infinity, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, -Infinity, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, true, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, {}, 1])), true);
+  assert.equal(Number.isNaN(numbers.mode(null)), true);
+  assert.equal(Number.isNaN(numbers.mode(undefined)), true);
+  assert.equal(Number.isNaN(numbers.mode("122")), true);
+  assert.equal(Number.isNaN(numbers.mode({})), true);
+  assert.equal(Number.isNaN(numbers.mode({ value: 1 })), true);
+  assert.equal(Number.isNaN(numbers.mode([, 2, 2])), true);
+  assert.equal(Number.isNaN(numbers.mode([1, Symbol("2"), 1])), true);
 });

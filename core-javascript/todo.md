@@ -4,10 +4,6 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `median(values)`
-
-Calcola il valore centrale di una lista ordinata numericamente. Deve gestire liste pari, liste dispari, array vuoti e non modificare l'array originale.
-
 ### `mode(values)`
 
 Restituisce il valore piu' frequente in una lista. Deve definire il comportamento in caso di parita' tra piu' valori e per array vuoti.
