@@ -4,10 +4,6 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `mode(values)`
-
-Restituisce il valore piu' frequente in una lista. Deve definire il comportamento in caso di parita' tra piu' valori e per array vuoti.
-
 ### `countOccurrences(values, target)`
 
 Conta quante volte un valore compare in una lista. Deve chiarire come confrontare `NaN`, `0`, `-0` e valori di tipo diverso.

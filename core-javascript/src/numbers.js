@@ -204,6 +204,47 @@ export function median(values) {
   }
 }
 
-export function mode(values){
-    
+export function mode(values) {
+  
+  if (
+    typeof values !== "object" ||
+    values === null ||
+    Object.keys(values).length === 0 ||
+    !Array.isArray(values)
+  ) {
+    return NaN;
+  }
+
+  const set = new Set(values)
+  let count = 0
+  let ris = []
+
+  for (const element of set) {
+
+    if (!isNumber(element)) {
+      return NaN;
+    }
+    let temp = values.reduce((count, num) => (num === element ? count + 1 : count), 0)
+    if (temp === count) {
+      ris = [...ris, element]
+    }
+    if (temp > count) {
+      ris = [element]
+      count = temp
+    }
+  }
+  return ris.length > 1 ? NaN : ris[0]
+}
+
+export function countOccurrences(values, target){
+  if (
+    typeof values !== "object" ||
+    values === null ||
+    Object.keys(values).length === 0 ||
+    !Array.isArray(values)
+  ) {
+    return NaN;
+  }
+  const count = values.reduce((i, num) => (!isNumber(num) ? NaN : num === target ? i + 1 : i), 0)
+  return count 
 }

@@ -415,3 +415,53 @@ test("mode", () => {
   assert.equal(Number.isNaN(numbers.mode([, 2, 2])), true);
   assert.equal(Number.isNaN(numbers.mode([1, Symbol("2"), 1])), true);
 });
+
+test("countOccurrences", () => {
+  assert.equal(numbers.countOccurrences([1, 2, 2, 3], 2), 2);
+  assert.equal(numbers.countOccurrences([1, 2, 3], 4), 0);
+  assert.equal(numbers.countOccurrences([-1, -1, 2], -1), 2);
+  assert.equal(numbers.countOccurrences([1.5, 2.5, 1.5], 1.5), 2);
+  assert.equal(numbers.countOccurrences([0, -0, 0], 0), 3);
+  assert.equal(numbers.countOccurrences([0, -0, 0], -0), 3);
+  assert.equal(numbers.countOccurrences([7], 7), 1);
+  assert.equal(numbers.countOccurrences([7], 8), 0);
+  assert.equal(Number.isNaN(numbers.countOccurrences([], 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, "2", 2], 2)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, null, 1], 1)), true);
+  assert.equal(
+    Number.isNaN(numbers.countOccurrences([1, undefined, 1], 1)),
+    true,
+  );
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, NaN, 1], 1)), true);
+  assert.equal(
+    Number.isNaN(numbers.countOccurrences([1, Infinity, 1], 1)),
+    true,
+  );
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, true, 1], 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, {}, 1], 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences([, 1], 1)), true);
+  assert.equal(
+    Number.isNaN(numbers.countOccurrences([1, Symbol("1"), 1], 1)),
+    true,
+  );
+  assert.equal(Number.isNaN(numbers.countOccurrences(null, 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences(undefined, 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences("112", 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences({}, 1)), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], "2")), true);
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], null)), true);
+  assert.equal(
+    Number.isNaN(numbers.countOccurrences([1, 2, 3], undefined)),
+    true,
+  );
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], NaN)), true);
+  assert.equal(
+    Number.isNaN(numbers.countOccurrences([1, 2, 3], Infinity)),
+    true,
+  );
+  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], true)), true);
+  assert.equal(
+    Number.isNaN(numbers.countOccurrences([1, 2, 3], Symbol("2"))),
+    true,
+  );
+});
