@@ -4,7 +4,7 @@
 
 Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestione degli edge case e test mirati.
 
-### `countOccurrences(values, target)`
+### `countNumberOccurrences(values, target)`
 
 Conta quante volte un valore compare in una lista. Deve chiarire come confrontare `NaN`, `0`, `-0` e valori di tipo diverso.
 

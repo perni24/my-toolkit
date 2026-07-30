@@ -236,7 +236,7 @@ export function mode(values) {
   return ris.length > 1 ? NaN : ris[0]
 }
 
-export function countOccurrences(values, target){
+export function countNumberOccurrences(values, target){
   if (
     typeof values !== "object" ||
     values === null ||
@@ -245,6 +245,36 @@ export function countOccurrences(values, target){
   ) {
     return NaN;
   }
-  const count = values.reduce((i, num) => (!isNumber(num) ? NaN : num === target ? i + 1 : i), 0)
+  if(!isNumber(target)){
+    return NaN
+  }
+  let count = 0
+  for(const element of values){
+    if (!isNumber(element)){
+      return NaN
+    }
+    if(element === target){
+      count ++
+    }
+  }
   return count 
+}
+
+export function uniqueNumbers(values){
+  if (
+    typeof values !== "object" ||
+    values === null ||
+    Object.keys(values).length === 0 ||
+    !Array.isArray(values)
+  ) {
+    return NaN;
+  }
+  for(const element of values){
+    if (!isNumber(element)){
+      return NaN
+    }
+  }
+  const set = new Set(values)
+  const ris = [...set]
+  return ris
 }

@@ -416,52 +416,76 @@ test("mode", () => {
   assert.equal(Number.isNaN(numbers.mode([1, Symbol("2"), 1])), true);
 });
 
-test("countOccurrences", () => {
-  assert.equal(numbers.countOccurrences([1, 2, 2, 3], 2), 2);
-  assert.equal(numbers.countOccurrences([1, 2, 3], 4), 0);
-  assert.equal(numbers.countOccurrences([-1, -1, 2], -1), 2);
-  assert.equal(numbers.countOccurrences([1.5, 2.5, 1.5], 1.5), 2);
-  assert.equal(numbers.countOccurrences([0, -0, 0], 0), 3);
-  assert.equal(numbers.countOccurrences([0, -0, 0], -0), 3);
-  assert.equal(numbers.countOccurrences([7], 7), 1);
-  assert.equal(numbers.countOccurrences([7], 8), 0);
-  assert.equal(Number.isNaN(numbers.countOccurrences([], 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, "2", 2], 2)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, null, 1], 1)), true);
+test("countNumberOccurrences", () => {
+  assert.equal(numbers.countNumberOccurrences([1, 2, 2, 3], 2), 2);
+  assert.equal(numbers.countNumberOccurrences([1, 2, 3], 4), 0);
+  assert.equal(numbers.countNumberOccurrences([-1, -1, 2], -1), 2);
+  assert.equal(numbers.countNumberOccurrences([1.5, 2.5, 1.5], 1.5), 2);
+  assert.equal(numbers.countNumberOccurrences([0, -0, 0], 0), 3);
+  assert.equal(numbers.countNumberOccurrences([0, -0, 0], -0), 3);
+  assert.equal(numbers.countNumberOccurrences([7], 7), 1);
+  assert.equal(numbers.countNumberOccurrences([7], 8), 0);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([], 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, "2", 2], 2)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, null, 1], 1)), true);
   assert.equal(
-    Number.isNaN(numbers.countOccurrences([1, undefined, 1], 1)),
+    Number.isNaN(numbers.countNumberOccurrences([1, undefined, 1], 1)),
     true,
   );
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, NaN, 1], 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, NaN, 1], 1)), true);
   assert.equal(
-    Number.isNaN(numbers.countOccurrences([1, Infinity, 1], 1)),
+    Number.isNaN(numbers.countNumberOccurrences([1, Infinity, 1], 1)),
     true,
   );
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, true, 1], 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, {}, 1], 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences([, 1], 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, true, 1], 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, {}, 1], 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([, 1], 1)), true);
   assert.equal(
-    Number.isNaN(numbers.countOccurrences([1, Symbol("1"), 1], 1)),
+    Number.isNaN(numbers.countNumberOccurrences([1, Symbol("1"), 1], 1)),
     true,
   );
-  assert.equal(Number.isNaN(numbers.countOccurrences(null, 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences(undefined, 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences("112", 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences({}, 1)), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], "2")), true);
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], null)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences(null, 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences(undefined, 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences("112", 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences({}, 1)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], "2")), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], null)), true);
   assert.equal(
-    Number.isNaN(numbers.countOccurrences([1, 2, 3], undefined)),
+    Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], undefined)),
     true,
   );
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], NaN)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], NaN)), true);
   assert.equal(
-    Number.isNaN(numbers.countOccurrences([1, 2, 3], Infinity)),
+    Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], Infinity)),
     true,
   );
-  assert.equal(Number.isNaN(numbers.countOccurrences([1, 2, 3], true)), true);
+  assert.equal(Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], true)), true);
   assert.equal(
-    Number.isNaN(numbers.countOccurrences([1, 2, 3], Symbol("2"))),
+    Number.isNaN(numbers.countNumberOccurrences([1, 2, 3], Symbol("2"))),
     true,
   );
+});
+
+test("uniqueNumbers", () => {
+  assert.deepEqual(numbers.uniqueNumbers([1, 2, 2, 3]), [1, 2, 3]);
+  assert.deepEqual(numbers.uniqueNumbers([3, 1, 3, 2, 1]), [3, 1, 2]);
+  assert.deepEqual(numbers.uniqueNumbers([-1, -1, 2, -1]), [-1, 2]);
+  assert.deepEqual(numbers.uniqueNumbers([1.5, 2.5, 1.5]), [1.5, 2.5]);
+  assert.deepEqual(numbers.uniqueNumbers([7]), [7]);
+  assert.deepEqual(numbers.uniqueNumbers([0, -0, 0]), [0]);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, "2", 2])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, null, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, undefined, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, NaN, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, Infinity, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, -Infinity, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, true, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, {}, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([, 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers([1, Symbol("1"), 1])), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers(null)), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers(undefined)), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers("112")), true);
+  assert.equal(Number.isNaN(numbers.uniqueNumbers({ value: 1 })), true);
 });
