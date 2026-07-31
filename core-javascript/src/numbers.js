@@ -278,3 +278,17 @@ export function uniqueNumbers(values){
   const ris = [...set]
   return ris
 }
+
+export function safeDivide(dividend, divisor, fallback){
+  if(divisor === 0 || !isNumber(divisor)){
+    return fallback
+  }
+  if(!isNumber(dividend)){
+    return fallback
+  }
+  return dividend / divisor
+}
+
+export function percentageChange(previousValue, currentValue){
+  return ((currentValue-previousValue)/previousValue)*100
+}
