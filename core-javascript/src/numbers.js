@@ -1,3 +1,5 @@
+import * as validation from "./internal/validation.js";
+
 export function isNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
 }
@@ -70,10 +72,7 @@ export function percentage(value, total) {
 export function sum(values) {
   let ris = 0;
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -97,10 +96,7 @@ export function average(values) {
 export function min(values) {
   let minValue = null;
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -118,10 +114,7 @@ export function min(values) {
 export function max(values) {
   let maxValue = null;
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -139,10 +132,7 @@ export function max(values) {
 export function product(values) {
   let total = 1;
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -180,10 +170,7 @@ export function isCloseTo(value, target, tolerance) {
 
 export function median(values) {
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -207,10 +194,7 @@ export function median(values) {
 export function mode(values) {
   
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -238,10 +222,7 @@ export function mode(values) {
 
 export function countNumberOccurrences(values, target){
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
@@ -262,10 +243,7 @@ export function countNumberOccurrences(values, target){
 
 export function uniqueNumbers(values){
   if (
-    typeof values !== "object" ||
-    values === null ||
-    Object.keys(values).length === 0 ||
-    !Array.isArray(values)
+    !validation.isEmptyArray(values)
   ) {
     return NaN;
   }
