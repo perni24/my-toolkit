@@ -6,18 +6,6 @@ Funzioni numeriche da implementare per esercitarsi su clean code, naming, gestio
 
 ## Prossimi esercizi
 
-### `safeDivide(dividend, divisor, fallback)`
-
-Esegue una divisione senza propagare risultati non validi. Deve restituire `fallback` quando gli argomenti non sono numeri validi o il divisore e' zero.
-
-Utile per percentuali, medie, report e valori provenienti da input esterni.
-
-### `percentageChange(previousValue, currentValue)`
-
-Calcola la variazione percentuale tra un valore precedente e uno corrente. Deve definire chiaramente il comportamento quando il valore precedente e' zero.
-
-Utile per prezzi, metriche, statistiche e dashboard.
-
 ### `mapRange(value, inputMin, inputMax, outputMin, outputMax)`
 
 Converte un valore da un intervallo a un altro mantenendone la posizione relativa. Deve gestire intervalli invertiti, valori fuori intervallo e intervalli con estremi uguali.

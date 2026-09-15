@@ -268,5 +268,21 @@ export function safeDivide(dividend, divisor, fallback){
 }
 
 export function percentageChange(previousValue, currentValue){
-  return ((currentValue-previousValue)/previousValue)*100
+  if(!isNumber(previousValue) || !isNumber(currentValue) || previousValue === 0){
+    return NaN
+  }
+  return (currentValue-previousValue)/Math.abs(previousValue)*100
+}
+
+export function mapRange(value, inputMin, inputMax, outputMin, outputMax){
+
+  const intervalloInput = inputMax - inputMin
+  const intervalloOut = outputMax - outputMin
+  const distanzaValue = value - inputMin
+  
+  let posizioneRelativa = distanzaValue / intervalloInput
+  let passoOut = intervalloOut * posizioneRelativa
+
+  return outputMin + passoOut
+
 }

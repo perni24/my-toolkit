@@ -553,3 +553,36 @@ test("percentageChange", () => {
   assert.equal(Number.isNaN(numbers.percentageChange(100n, 120)), true);
   assert.equal(Number.isNaN(numbers.percentageChange(100, Symbol("120"))), true);
 });
+
+test("mapRange", () => {
+  assert.equal(numbers.mapRange(0, 0, 100, 0, 1), 0);
+  assert.equal(numbers.mapRange(25, 0, 100, 0, 1), 0.25);
+  assert.equal(numbers.mapRange(50, 0, 100, 0, 1), 0.5);
+  assert.equal(numbers.mapRange(100, 0, 100, 0, 1), 1);
+  assert.equal(numbers.mapRange(30, 20, 40, 0, 100), 50);
+  assert.equal(numbers.mapRange(25, 20, 40, -10, 30), 0);
+  assert.equal(numbers.mapRange(5, 0, 10, 10, 20), 15);
+  assert.equal(numbers.mapRange(10, 10, 0, 0, 100), 0);
+  assert.equal(numbers.mapRange(5, 10, 0, 0, 100), 50);
+  assert.equal(numbers.mapRange(0, 10, 0, 0, 100), 100);
+  assert.equal(numbers.mapRange(0, 0, 10, 100, 0), 100);
+  assert.equal(numbers.mapRange(2, 0, 10, 100, 0), 80);
+  assert.equal(numbers.mapRange(10, 0, 10, 100, 0), 0);
+  assert.equal(numbers.mapRange(-2, 0, 10, 0, 100), -20);
+  assert.equal(numbers.mapRange(12, 0, 10, 0, 100), 120);
+  assert.equal(numbers.mapRange(3, 0, 10, 7, 7), 7);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 5, 5, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 10, 10, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange("5", 0, 10, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, "0", 10, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, null, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, 10, undefined, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, 10, 0, true)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(NaN, 0, 10, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, Infinity, 10, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, -Infinity, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, 10, Infinity, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, 10, 0, -Infinity)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5n, 0, 10, 0, 100)), true);
+  assert.equal(Number.isNaN(numbers.mapRange(5, 0, 10, 0, Symbol("100"))), true);
+});

@@ -6,7 +6,7 @@ Utility JavaScript riutilizzabili del monorepo.
 
 Serve Node.js installato. Per controllare la versione:
 
-```bash
+```powershell
 node -v
 npm -v
 ```
@@ -15,14 +15,14 @@ npm -v
 
 Dalla root del monorepo:
 
-```bash
-cd "C:\Users\SE-Luca Bellini\Documents\Luca\my-toolkit\core-javascript"
+```powershell
+cd core-javascript
 npm test
 ```
 
 Comando equivalente senza npm:
 
-```bash
+```powershell
 node --test
 ```
 
@@ -30,13 +30,13 @@ node --test
 
 Per eseguire solo i test del file `numbers.test.js`:
 
-```bash
+```powershell
 npm test -- .\test\numbers.test.js
 ```
 
 Comando equivalente senza npm:
 
-```bash
+```powershell
 node --test .\test\numbers.test.js
 ```
 
@@ -44,14 +44,14 @@ node --test .\test\numbers.test.js
 
 Per eseguire solo il test chiamato `isNumber`:
 
-```bash
-npm test -- .\test\numbers.test.js --test-name-pattern "isNumber"
+```powershell
+npm test -- --test-name-pattern "isNumber" .\test\numbers.test.js
 ```
 
 Comando equivalente senza npm:
 
-```bash
-node --test .\test\numbers.test.js --test-name-pattern "isNumber"
+```powershell
+node --test --test-name-pattern "isNumber" .\test\numbers.test.js
 ```
 
 ## Convenzione consigliata
